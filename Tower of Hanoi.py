@@ -29,7 +29,7 @@ class Disk():
         self.size = size
         self.t = turtle.Turtle()
         self.t.up()
-        self.t.speed(4)
+        self.t.speed(3)
         self.t.shape('square')
         self.t.color(color)
         self.t.shapesize(1, self.size)
