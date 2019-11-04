@@ -25,7 +25,7 @@ class Pole():
         self.disks_list.pop()
 
 class Disk():
-    def __init__(self,size, color = 'blue'):
+    def __init__(self, size , color = 'blue'):
         self.size = size
         self.t = turtle.Turtle()
         self.t.up()
@@ -38,7 +38,7 @@ class Disk():
         des_pole.add_disk(self)
         self.t.goto(ori_pole.location, 230)
         self.t.goto(des_pole.location, 230)
-        self.t.goto  (des_pole.location, len(des_pole.disks_list)*25 - 125) 
+        self.t.goto(des_pole.location, len(des_pole.disks_list)*25 - 125) 
 
 def tower_of_hanoi(n, ori_pole, des_pole, with_pole): 
 
