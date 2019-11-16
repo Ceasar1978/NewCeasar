@@ -653,7 +653,56 @@ tower_of_hanoi(n, pa, pc, pb)
 m = turtle.Screen()
 m.exitonclick()
 #以上为汉诺塔程序
-
-
-
+#以下为帕斯卡三角程序
+def Pascal_triangle(n):
+    list_1 = [0]*(n - 1) + [1] + [0]*(n - 1)
+    for i in range (2, n + 1):        
+        locals()['list_' + str(i)] = []
+        locals()['list_' + str(i)].append(locals()['list_' + str(i - 1)][1])
+        for j in range(1, len(list_1) - 1):
+            locals()['list_' + str(i)].append(locals()['list_' + str(i - 1)][j - 1] + \
+            locals()['list_' + str(i - 1)][j + 1])
+        locals()['list_' + str(i)].append(locals()['list_' + str(i - 1)][-2])
+    for i in range(1, n + 1):
+        res = ''
+        for j in range(len(list_1)):
+            if locals()['list_' + str(i)][j] == 0:
+                res += ' '*3
+            else:
+                res += str(locals()['list_' + str(i)][j]).center(3)
+        print(res)       
+Pascal_triangle(10)
+#以上为帕斯卡三角程序
+#以下为快速排序程序
+def quick_sort(a_list):
+    if len(a_list) <= 1:        
+        return a_list
+    else:
+        left_mark = 1
+        right_mark = len(a_list) - 1
+        while left_mark < right_mark:
+            while left_mark < len(a_list) and a_list[left_mark] < a_list[0]:
+                left_mark += 1
+            while a_list[right_mark] > a_list[0]:
+                right_mark -= 1
+            if left_mark < right_mark:
+                a_list[left_mark], a_list[right_mark] = a_list[right_mark], a_list[left_mark]
+            else:
+                break        
+        a_list[0], a_list[right_mark] = a_list[right_mark], a_list[0]
+        left_list, right_list = [], []
+        for i in range(right_mark):
+            left_list.append(a_list[i])
+        for j in range(right_mark + 1, len(a_list)):
+            right_list.append(a_list[j])
+        return quick_sort(left_list) + [a_list[right_mark]] + quick_sort(right_list)
+        
+import random
+a=[]
+for i in range(20):
+    a.append(random.randrange(1000))
+a_list = [54, 26, 93, 17, 77, 31, 44, 55, 20]
+print(a)
+print(quick_sort(a))
+#以上为快速排序程序
 

@@ -973,3 +973,6 @@ for i in range(1,5):
 print(tl)
 
 此处的 locals()[name] 实际上就是分别指代了 t1 至 t4,把迭代产生的实例放入列表有个好处，后期需要调用时可以用 list[i] 的索引方式进行调用。
+11.6 
+1、每个 class 可以设置该 class 下所有实例共用的属性。赋值方法是：
+Dog.kind = 'canidae'
