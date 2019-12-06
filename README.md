@@ -976,3 +976,101 @@ print(tl)
 11.6 
 1、每个 class 可以设置该 class 下所有实例共用的属性。赋值方法是：
 Dog.kind = 'canidae'
+11.16
+1、debug 时，要善用 print 语句输出中间结果，根据显示出的相关信息处理异常情况。
+2、如果列表中没有某个索引，通过索引调用某个元素就会报错。
+3、列表经过 slice 操作后，自身会发生变化，如果需要进行两次以上的 slice，应该用临时变量保留原始值。
+4、可以用 done = False 变量来控制 while 循环，详见 problem solving 一书中的快速排序程序代码。
+11.17
+1、自己实现的快速排序方法，当需排序数字大于 160 时就会卡死，对比教材代码发现，在比较 a_list[0] 和 a_list[left_mark]  a_list[right_mark] 时，应该用 <= 或 >=，而不能只用 >,<，否则当列表中出现三个及以上重复数字的时候，就会陷入死循环。
+2、
+def search(item, a):
+    print(a)
+    if a[0] == item:
+        print('a')
+        return True
+    else:
+        return search(item, a[1:])
+    return False
+这段用递归方法实现的搜索代码中，倒数第二行必须有 return，因为最终目的是要输出 True 或者 False。
+11.22
+标准库 operator 可提供各种数学运算的函数，并且将这些函数赋值给变量：
+
+import operator
+fn = operator.add
+print(fn(2,3))
+
+结果为 4
+12.1
+try except 组合处理异常时，try 中出现错误后，可继续执行，而不会导致整个程序崩溃。这样可以有利程序的调试过程。
+def spam(divideBy):
+    try:
+        return 42 / divideBy
+    except ZeroDivisionError:
+        print('Error: Invalid argument.')
+print(spam(2))
+print(spam(12))
+print(spam(0))
+print(spam(1))
+运行结果：
+21.0
+3.5
+Error: Invalid argument.
+None
+42.0
+
+def spam(divideBy):
+return 42 / divideBy
+try:
+    print(spam(2))
+    print(spam(12))
+    print(spam(0))
+    print(spam(1))
+except ZeroDivisionError:
+    print('Error: Invalid argument.')
+运行结果：
+21.0
+3.5
+Error: Invalid argument.
+因为出错后直接跳到 except 语句，而不会再返回，因此 print(spam(1)) 这个语句不会被执行！
+
+Python uses references whenever variables must
+store values of mutable data types, such as lists or dictionaries. For values
+of immutable data types such as strings, integers, or tuples, Python vari-
+ables will store the value itself.
+对于可变类型（例如，列表和字典），会有以下效果
+>>> spam = [0, 1, 2, 3, 4, 5]
+>>> cheese = spam
+>>> cheese[1] = 'Hello!'
+>>> spam
+[0, 'Hello!', 2, 3, 4, 5]
+>>> cheese
+[0, 'Hello!', 2, 3, 4, 5]
+对可变类型的修改会造成连带变化，如果想避免，可以用以下方式复制原列表：
+a=[1,2]
+b=a[:]
+a.append(3)
+print(b)
+结果是
+[1,2]
+
+或者使用 copy 模块：
+>>> import copy
+>>> spam = ['A', 'B', 'C', 'D']
+>>> cheese = copy.copy(spam)
+>>> cheese[1] = 42
+>>> spam
+['A', 'B', 'C', 'D']
+>>> cheese
+['A', 42, 'C', 'D']
+
+a=[1,2]
+b=a.append(3)
+print(b)
+结果是
+None
+12.3
+Using the  keys() ,  values() , and  items() methods, a  for loop can iterate
+over the keys, values, or key-value pairs in a dictionary, respectively. Notice
+that the values in the  dict_items value returned by the  items() method are
+tuples of the key and value.

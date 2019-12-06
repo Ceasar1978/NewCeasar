@@ -673,36 +673,59 @@ def Pascal_triangle(n):
         print(res)       
 Pascal_triangle(10)
 #以上为帕斯卡三角程序
-#以下为快速排序程序
+#以下为自己实现的快速排序程序
 def quick_sort(a_list):
-    if len(a_list) <= 1:        
+    if len(a_list) <= 1:
         return a_list
     else:
         left_mark = 1
         right_mark = len(a_list) - 1
-        while left_mark < right_mark:
-            while left_mark < len(a_list) and a_list[left_mark] < a_list[0]:
+        done = False
+        while not done:
+            while left_mark < len(a_list) and a_list[left_mark] <= a_list[0]:
                 left_mark += 1
-            while a_list[right_mark] > a_list[0]:
+            while right_mark > 0 and a_list[right_mark] >= a_list[0]:
                 right_mark -= 1
             if left_mark < right_mark:
                 a_list[left_mark], a_list[right_mark] = a_list[right_mark], a_list[left_mark]
             else:
-                break        
+                done = True
         a_list[0], a_list[right_mark] = a_list[right_mark], a_list[0]
-        left_list, right_list = [], []
-        for i in range(right_mark):
-            left_list.append(a_list[i])
-        for j in range(right_mark + 1, len(a_list)):
-            right_list.append(a_list[j])
-        return quick_sort(left_list) + [a_list[right_mark]] + quick_sort(right_list)
-        
+        left_list, right_list = a_list, a_list
+        left_list = left_list[: right_mark]
+        right_list = right_list[right_mark + 1 :]
+        return quick_sort(left_list) + [a_list[right_mark]] + quick_sort(right_list)     
 import random
 a=[]
-for i in range(20):
+for i in range(500):
     a.append(random.randrange(1000))
-a_list = [54, 26, 93, 17, 77, 31, 44, 55, 20]
+print(quick_sort(a))
+#以上为自己实现的快速排序程序，以下为教材上实现的方法
+def quick_sort(a_list, first, last):
+    if first < last:
+        left_mark = first + 1
+        right_mark = last
+        done = False
+        while True:
+            while left_mark <= right_mark and a_list[left_mark] <= a_list[first]:
+                left_mark = left_mark + 1
+            while a_list[right_mark] >= a_list[first] and right_mark >= left_mark:
+                right_mark = right_mark - 1
+            if right_mark < left_mark:
+                break
+            else:
+                a_list[left_mark], a_list[right_mark] = a_list[right_mark], a_list[left_mark]
+        a_list[first], a_list[right_mark] = a_list[right_mark], a_list[first]
+        split_point = right_mark
+        quick_sort(a_list, first, split_point - 1)
+        quick_sort(a_list, split_point + 1, last)
+
+import random
+a=[]
+for i in range(100):
+    a.append(random.randrange(1000))
 print(a)
 print(quick_sort(a))
-#以上为快速排序程序
+#以上为教材上实现的快速排序
+
 
